@@ -6,16 +6,14 @@ export function navigate(href: any) {
     window.dispatchEvent(navigationEvent) //lanza el nuevo evento
 }
 
-export function Link({ target = '', to = '/', ...props }) {
-    const handleClick = (e: any) => {
-
-
-        const isMainEvent = e.button === 0 // click principal (click derecho)
-        const isModifiedEvent = e.metaKey || e.altKey || e.ctrlKey || e.shiftKey
+export function Link({ target, to, ...props }: { target?: string | undefined, to: string | undefined, [key: string]: any }) {
+    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        const isMainEvent = event.button === 0 // click principal (click izquierdo)
+        const isModifiedEvent = event.metaKey || event.altKey || event.ctrlKey || event.shiftKey
         const isManageableEvent = target === undefined || target === '_self'
 
         if (isMainEvent && isManageableEvent && !isModifiedEvent) {
-            e.preventDefault()
+            event.preventDefault()
             navigate(to)
         }
     }
