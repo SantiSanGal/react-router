@@ -1,4 +1,4 @@
-import { navigate } from "../App"
+import { Link, navigate } from "../Link"
 
 export const AboutPage = () => {
     return (
@@ -9,7 +9,8 @@ export const AboutPage = () => {
             </div>
             <p>Página de ejemplo para React Router</p>
             {/* <a href="/">ir a Home</a> */}
-            <button onClick={() => navigate('/')}> ir a Home </button>
+            {/* <button onClick={() => navigate('/')}> ir a Home </button> */}
+            <Link to='/'> ir a Home </Link >
         </>
     )
 }

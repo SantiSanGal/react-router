@@ -1,15 +1,10 @@
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { useEffect, useState } from 'react';
+import { EVENTS } from './interfaces/consts';
 
 // nombre del nuevo evento
-const NAVIGATION_EVENT = 'pushstate'
-
-export function navigate(href) {
-  window.history.pushState({}, '', href) // agrega al historial una nueva url
-  const navigationEvent = new Event(NAVIGATION_EVENT) //crea el nuevo evento
-  window.dispatchEvent(navigationEvent) //lanza el nuevo evento
-}
+// const NAVIGATION_EVENT = 'pushstate'
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
@@ -21,11 +16,13 @@ function App() {
     }
 
     //pone a escuchar el nuevo evento
-    window.addEventListener(NAVIGATION_EVENT, onLocationChange)
+    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange)
+    window.addEventListener(EVENTS.POPSTATE, onLocationChange)
 
     return () => {
       //se limpian las referencias
-      window.removeEventListener(NAVIGATION_EVENT, onLocationChange)
+      window.removeEventListener(EVENTS.PUSHSTATE, onLocationChange)
+      window.removeEventListener(EVENTS.POPSTATE, onLocationChange)
     }
 
   }, [])
